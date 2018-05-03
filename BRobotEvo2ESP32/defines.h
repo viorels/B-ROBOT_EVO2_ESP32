@@ -8,15 +8,16 @@
 #ifndef DEFINES_H_
 #define DEFINES_H_
 
-#define PIN_ENABLE_MOTORS 12
+#define PIN_ENABLE_MOTORS 5
+#define PIN_ENABLE_MICRO_STEPPING 17
 
-#define PIN_SERVO 17
+#define PIN_SERVO 13
 
-#define PIN_MOTOR1_DIR 27
-#define PIN_MOTOR1_STEP 14
+#define PIN_MOTOR1_DIR 4
+#define PIN_MOTOR1_STEP 2
 
-#define PIN_MOTOR2_DIR 25
-#define PIN_MOTOR2_STEP 26
+#define PIN_MOTOR2_DIR 19
+#define PIN_MOTOR2_STEP 18
 
 #define TELEMETRY "192.168.4.1" // Default telemetry server (first client) port 2223
 
@@ -67,7 +68,7 @@
 #define ZERO_SPEED 0xffffff
 #define MAX_ACCEL 14      // Maximun motor acceleration (MAX RECOMMENDED VALUE: 20) (default:14)
 
-#define MICROSTEPPING 16   // 8 or 16 for 1/8 or 1/16 driver microstepping (default:16)
+#define MICROSTEPPING 8   // 8 or 16 for 1/8 or 1/16 driver microstepping (default:16)
 
 #define DEBUG 0   // 0 = No debug info (default) DEBUG 1 for console output
 
