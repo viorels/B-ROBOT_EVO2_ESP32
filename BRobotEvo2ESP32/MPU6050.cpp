@@ -53,7 +53,8 @@ float MPU6050_getAngle(float dt)
   //Serial.print(" ");
   //Serial.println(x_gyro_offset);
 
-  return angle;
+  // XXX: return negative angle to avoid reverting the gyro board itself
+  return -angle;
 }
 
 // Calibrate function. Take 100 readings (over 2 seconds) to calculate the gyro offset value. IMU should be steady in this process...
