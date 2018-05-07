@@ -11,7 +11,7 @@
 #define PIN_ENABLE_MOTORS 5
 #define PIN_ENABLE_MICRO_STEPPING 17
 
-#define PIN_SERVO 13
+#define PIN_SERVO 12
 
 #define PIN_MOTOR1_DIR 4
 #define PIN_MOTOR1_STEP 2
