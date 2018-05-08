@@ -17,7 +17,7 @@
 #include <WiFiUdp.h>
 #include "OSC.h"
 #include "esp32-hal-ledc.h"
-#include <Adafruit_NeoPixel.h>
+#include "LedEyes.h"
 
 void initTimers();
 
@@ -36,8 +36,6 @@ void initMPU6050() {
 	MPU6050_calibrate();
 }
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(2, PIN_LEDS, NEO_GRB + NEO_KHZ800);
-
 void setup() {
 	pinMode(PIN_ENABLE_MOTORS, OUTPUT);
 	digitalWrite(PIN_ENABLE_MOTORS, HIGH);
@@ -52,12 +50,7 @@ void setup() {
 
 	pinMode(PIN_SERVO, OUTPUT);
 
-  pixels.begin();
-
-  for(int i=0; i<2; i++){
-    pixels.setPixelColor(i, pixels.Color(0,0,100)); // Moderately bright blue color.
-    pixels.show(); // This sends the updated pixel color to the hardware.
-  }
+  initEyes();
 
 	ledcSetup(6, 50, 16); // channel 6, 50 Hz, 16-bit width
 	ledcAttachPin(PIN_SERVO, 6);   // GPIO 22 assigned to channel 1
@@ -348,6 +341,9 @@ void loop() {
 		}
 
 	} // End of new IMU data
+
+  // update eye color, called at 200Hz
+  updateEyes();
 
 	// Medium loop 7.5Hz
 	if (loop_counter >= 15) {
