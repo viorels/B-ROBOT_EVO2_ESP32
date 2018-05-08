@@ -68,7 +68,7 @@
 #define ZERO_SPEED 0xffffff
 #define MAX_ACCEL 14      // Maximun motor acceleration (MAX RECOMMENDED VALUE: 20) (default:14)
 
-#define MICROSTEPPING 8   // 8 or 16 for 1/8 or 1/16 driver microstepping (default:16)
+#define MICROSTEPPING 16   // 8 or 16 for 1/8 or 1/16 driver microstepping (default:16)
 
 #define DEBUG 0   // 0 = No debug info (default) DEBUG 1 for console output
 
