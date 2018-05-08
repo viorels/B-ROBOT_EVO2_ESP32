@@ -19,6 +19,8 @@
 #define PIN_MOTOR2_DIR 19
 #define PIN_MOTOR2_STEP 18
 
+#define PIN_LEDS 14
+
 #define TELEMETRY "192.168.4.1" // Default telemetry server (first client) port 2223
 
 // NORMAL MODE PARAMETERS (MAXIMUN SETTINGS)
