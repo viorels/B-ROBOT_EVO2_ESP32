@@ -313,7 +313,7 @@ void loop() {
 		// Push1 Move servo arm
 		if (OSCpush[0])  // Move arm
 		{
-			if (angle_adjusted > -40)
+			if (angle_adjusted < -40)   // was > -40
 				ledcWrite(6, SERVO_MIN_PULSEWIDTH);
 			else
 				ledcWrite(6, SERVO_MAX_PULSEWIDTH);
