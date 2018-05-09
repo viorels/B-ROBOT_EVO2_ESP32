@@ -5,15 +5,35 @@
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(2, PIN_LEDS, NEO_GRB + NEO_KHZ800);
 
+RGB eyes_color = {0, 0, 0};
 RGB eyes_t = {0, 0, 0};   // transition color
-RGB eyes_color = {100, 0, 0};
 
 void initEyes() {
   pixels.begin();
 
   for (int i = 0; i < EYES_NUM; i++) {
-    pixels.setPixelColor(i, pixels.Color(0, 0, 50)); // Moderately bright blue color.
+    pixels.setPixelColor(i, pixels.Color(0, 0, 20)); // Moderately bright blue color.
     pixels.show(); // This sends the updated pixel color to the hardware.
+  }
+}
+
+void setEyesStatus(int speed, int arm) {
+  if (speed < 0) {  // XXX motor is reversed ??!
+    if (eyes_color.r != EYES_EVIL_RED)
+      eyes_color.g = 100;
+    eyes_color.b = 0;
+  }
+  else {
+    eyes_color.g = 0;
+    eyes_color.b = 100;
+  }
+
+  if (arm) {
+    eyes_color.r = EYES_EVIL_RED;
+    eyes_color.g = 0;
+  }
+  else {
+    eyes_color.r = 0;
   }
 }
 

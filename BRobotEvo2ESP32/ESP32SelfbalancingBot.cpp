@@ -295,8 +295,11 @@ void loop() {
 			// NOW we send the commands to the motors
 			setMotorSpeedM1(motor1);
 			setMotorSpeedM2(motor2);
-		} else   // Robot not ready (flat), angle > angle_ready => ROBOT OFF
-		{
+
+      // change eye color, green forward, blue back
+      setEyesStatus((motor1 + motor2) / 2, 0);
+		}
+		else {  // Robot not ready (flat), angle > angle_ready => ROBOT OFF
 			digitalWrite(PIN_ENABLE_MOTORS, HIGH);  // Disable motors
 			setMotorSpeedM1(0);
 			setMotorSpeedM2(0);
@@ -320,8 +323,11 @@ void loop() {
 				ledcWrite(6, SERVO_MIN_PULSEWIDTH);
 			else
 				ledcWrite(6, SERVO_MAX_PULSEWIDTH);
-		} else
+      setEyesStatus((motor1 + motor2) / 2, 1);
+		} else {
 			ledcWrite(6, SERVO_AUX_NEUTRO);
+      setEyesStatus((motor1 + motor2) / 2, 0);
+		}
 
 		// Servo2
 		//ledcWrite(6, SERVO2_NEUTRO + (OSCfader[2] - 0.5) * SERVO2_RANGE);

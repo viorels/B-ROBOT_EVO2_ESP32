@@ -3,6 +3,8 @@
 
 #include <Adafruit_NeoPixel.h>
 
+#define EYES_EVIL_RED 200
+
 typedef struct {
   byte r;
   byte g;
@@ -14,6 +16,7 @@ extern RGB eyes_t;
 extern RGB eyes_color;
 
 void initEyes();
+void setEyesStatus(int speed, int arm);
 void updateEyes();
 
 #endif /* LedEyes_H_ */
