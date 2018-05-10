@@ -20,6 +20,7 @@
 #define PIN_MOTOR2_STEP 18
 
 #define PIN_LEDS 14
+#define PIN_BATTERY_METER 33
 
 #define TELEMETRY "192.168.4.1" // Default telemetry server (first client) port 2223
 
@@ -63,7 +64,7 @@
 #define SERVO2_RANGE 8400
 
 // Telemetry
-#define TELEMETRY_BATTERY 0
+#define TELEMETRY_BATTERY 1
 #define TELEMETRY_ANGLE 1
 //#define TELEMETRY_DEBUG 1  // Dont use TELEMETRY_ANGLE and TELEMETRY_DEBUG at the same time!
 

@@ -9,7 +9,6 @@
 #include "defines.h"
 #include "esp32-hal-timer.h"
 
-
 String MAC;  // MAC address of Wifi module
 
 volatile long counter1 = 0;
@@ -21,7 +20,7 @@ uint8_t cascade_control_loop_counter = 0;
 uint8_t loop_counter;       // To generate a medium loop 40Hz
 uint8_t slow_loop_counter;  // slow loop 2Hz
 uint8_t sendBattery_counter; // To send battery status
-int16_t BatteryValue;
+float BatteryValue;
 
 long timer_old;
 long timer_value;
@@ -95,5 +94,4 @@ uint8_t OSCmove_mode;
 int16_t OSCmove_speed;
 int16_t OSCmove_steps1;
 int16_t OSCmove_steps2;
-
 

@@ -22,7 +22,7 @@ extern uint8_t cascade_control_loop_counter;
 extern uint8_t loop_counter;       // To generate a medium loop 40Hz
 extern uint8_t slow_loop_counter;  // slow loop 2Hz
 extern uint8_t sendBattery_counter; // To send battery status
-extern int16_t BatteryValue;
+extern float BatteryValue;
 
 extern long timer_old;
 extern long timer_value;

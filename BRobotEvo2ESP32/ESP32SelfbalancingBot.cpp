@@ -186,6 +186,33 @@ void processOSCMsg() {
 	}
 }
 
+// returns battery percentage
+float readBattery() {
+  int analog = analogRead(PIN_BATTERY_METER);
+
+  float voltage_analog = analog / 4095.0 * 3.3;
+  float divider = 2.2 / (2.2 + 9.8);  // voltage dividor resistors in Kohm
+  float error = 0.925; // TODO: ADC error? voltage divider error? hidden restor/resistance?
+  float voltage_real = voltage_analog / divider / error;
+
+  float voltage_min = 3.7 * 3;
+  float voltage_max = 4.2 * 3;
+
+  int percent = (voltage_real - voltage_min) / (voltage_max - voltage_min) * 100;
+  if (percent > 100)
+    percent = 100;
+  if (percent < 0)
+    percent = 0;
+
+  Serial.print(analog);
+  Serial.print(" -> ");
+  Serial.print(voltage_real);
+  Serial.print(" -> ");
+  Serial.println(percent);
+
+  return voltage_real;
+}
+
 void loop() {
 	OSC_MsgRead();
 
@@ -367,20 +394,22 @@ void loop() {
 		OSC_MsgSend(auxS, 50);
 #endif
 
+    BatteryValue = (BatteryValue*9 + readBattery()) / 10;
+    
 	} // End of medium loop
 	else if (slow_loop_counter >= 100) // 1Hz
 			{
 		slow_loop_counter = 0;
 		// Read  status
 #if TELEMETRY_BATTERY==1
-		BatteryValue = (BatteryValue + BROBOT_readBattery(false)) / 2;
 		sendBattery_counter++;
 		if (sendBattery_counter >= 3) { //Every 3 seconds we send a message
 			sendBattery_counter = 0;
+      int battery_x10_int = (int)(BatteryValue * 10);
 			Serial.print("B");
-			Serial.println(BatteryValue);
+			Serial.println(battery_x10_int);
 			char auxS[25];
-			sprintf(auxS, "$tB,%04d", BatteryValue);
+			sprintf(auxS, "$tB,%04d", battery_x10_int);
 			OSC_MsgSend(auxS, 25);
 		}
 #endif
