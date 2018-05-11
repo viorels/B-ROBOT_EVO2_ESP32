@@ -55,7 +55,7 @@ int bringByteCloser(byte value, byte target, byte step) {
 }
 
 void updateEyes() {
-  byte step = 1;
+  byte step = 20;
   RGB eyes_change = {
     r: bringByteCloser(eyes_t.r, eyes_color.r, step),
     g: bringByteCloser(eyes_t.g, eyes_color.g, step),

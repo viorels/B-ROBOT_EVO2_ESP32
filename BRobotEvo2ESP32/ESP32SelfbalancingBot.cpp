@@ -375,9 +375,6 @@ void loop() {
 
 	} // End of new IMU data
 
-  // update eye color, called at 200Hz
-  updateEyes();
-
 	// Medium loop 7.5Hz
 	if (loop_counter >= 15) {
 		loop_counter = 0;
@@ -393,6 +390,8 @@ void loop() {
 		sprintf(auxS, "$tD,%d,%d,%ld", int(angle_adjusted * 10), int(estimated_speed_filtered), steps1);
 		OSC_MsgSend(auxS, 50);
 #endif
+
+    updateEyes();
 
     BatteryValue = (BatteryValue*9 + readBattery()) / 10;
     
