@@ -192,23 +192,13 @@ float readBattery() {
 
   float voltage_analog = analog / 4095.0 * 3.3;
   float divider = 2.2 / (2.2 + 9.8);  // voltage dividor resistors in Kohm
-  float error = 0.925; // TODO: ADC error? voltage divider error? hidden restor/resistance?
+//  float error = 0.925; // TODO: ADC error? voltage divider error? hidden restor/resistance?
+  float error = 1;
   float voltage_real = voltage_analog / divider / error;
 
-  float voltage_min = 3.7 * 3;
-  float voltage_max = 4.2 * 3;
-
-  int percent = (voltage_real - voltage_min) / (voltage_max - voltage_min) * 100;
-  if (percent > 100)
-    percent = 100;
-  if (percent < 0)
-    percent = 0;
-
   Serial.print(analog);
-  Serial.print(" -> ");
-  Serial.print(voltage_real);
-  Serial.print(" -> ");
-  Serial.println(percent);
+  Serial.print(", ");
+  Serial.println(voltage_real);
 
   return voltage_real;
 }
