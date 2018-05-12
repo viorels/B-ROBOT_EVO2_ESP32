@@ -186,21 +186,22 @@ void processOSCMsg() {
 	}
 }
 
-// returns battery percentage
 float readBattery() {
+  // returns battery voltage
   int analog = analogRead(PIN_BATTERY_METER);
 
   float voltage_analog = analog / 4095.0 * 3.3;
   float divider = 2.2 / (2.2 + 9.8);  // voltage dividor resistors in Kohm
-//  float error = 0.925; // TODO: ADC error? voltage divider error? hidden restor/resistance?
-  float error = 1;
-  float voltage_real = voltage_analog / divider / error;
+  float voltage_real = voltage_analog / divider;
 
-  Serial.print(analog);
+  // error = 0.92 - 0.935; ADC error? voltage divider error? hidden restor/resistance?
+  float voltage_corrected = map(voltage_real*100, 918, 1180, 1000, 1260) / 100.0;
+/*
+  Serial.print(voltage_real);
   Serial.print(", ");
-  Serial.println(voltage_real);
-
-  return voltage_real;
+  Serial.println(voltage_corrected);
+*/
+  return voltage_corrected;
 }
 
 void loop() {
@@ -394,11 +395,15 @@ void loop() {
 		sendBattery_counter++;
 		if (sendBattery_counter >= 3) { //Every 3 seconds we send a message
 			sendBattery_counter = 0;
-      int battery_x10_int = (int)(BatteryValue * 10);
+
+      Serial.print(BatteryValue);
+      // from 11.0 - 12.6 (3S lipo) -> range 55 - 80 (expected by android UI)
+      int battery_mapped = constrain(map((int)(BatteryValue * 10), 110, 126, 55, 80), 55, 80);
+
 			Serial.print("B");
-			Serial.println(battery_x10_int);
+			Serial.println(battery_mapped);
 			char auxS[25];
-			sprintf(auxS, "$tB,%04d", battery_x10_int);
+			sprintf(auxS, "$tB,%04d", battery_mapped);
 			OSC_MsgSend(auxS, 25);
 		}
 #endif
