@@ -64,6 +64,7 @@
 #define SERVO2_RANGE 8400
 
 // Telemetry
+#define BATTERY_MIN 11.0    // 11v minimum for 3S LiPo
 #define TELEMETRY_BATTERY 1
 #define TELEMETRY_ANGLE 1
 //#define TELEMETRY_DEBUG 1  // Dont use TELEMETRY_ANGLE and TELEMETRY_DEBUG at the same time!

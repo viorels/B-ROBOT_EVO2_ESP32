@@ -306,7 +306,7 @@ void loop() {
 			angle_ready = 82;
 		else
 			angle_ready = 74;  // Default angle
-		if ((angle_adjusted < angle_ready) && (angle_adjusted > -angle_ready)) // Is robot ready (upright?)
+		if ((angle_adjusted < angle_ready) && (angle_adjusted > -angle_ready) && BatteryValue > BATTERY_MIN) // Is robot ready (upright?)
 				{
 			// NORMAL MODE
 			digitalWrite(PIN_ENABLE_MOTORS, LOW);  // Motors enable
