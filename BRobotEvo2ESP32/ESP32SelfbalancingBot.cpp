@@ -305,7 +305,7 @@ void loop() {
 		if (OSCpush[0])     // If we press the SERVO button we start to move
 			angle_ready = 82;
 		else
-			angle_ready = 74;  // Default angle
+			angle_ready = 70;  // Default angle
 		if ((angle_adjusted < angle_ready) && (angle_adjusted > -angle_ready) && BatteryValue > BATTERY_MIN) // Is robot ready (upright?)
 				{
 			// NORMAL MODE
