@@ -49,7 +49,7 @@
 #define KP_THROTTLE_RAISEUP 0   // No speed control on raiseup
 #define KI_THROTTLE_RAISEUP 0.0
 
-#define MAX_CONTROL_OUTPUT 500
+#define MAX_CONTROL_OUTPUT 650
 #define ITERM_MAX_ERROR 30   // Iterm windup constants for PI control
 #define ITERM_MAX 10000
 
@@ -70,7 +70,7 @@
 //#define TELEMETRY_DEBUG 1  // Dont use TELEMETRY_ANGLE and TELEMETRY_DEBUG at the same time!
 
 #define ZERO_SPEED 0xffffff
-#define MAX_ACCEL 14      // Maximun motor acceleration (MAX RECOMMENDED VALUE: 20) (default:14)
+#define MAX_ACCEL 18      // Maximun motor acceleration (MAX RECOMMENDED VALUE: 20) (default:14)
 
 // 1 to disable micro stepping
 // 8 (no jumper) or 16 (JUMPER set) for microstepping
