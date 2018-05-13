@@ -397,8 +397,8 @@ void loop() {
 			sendBattery_counter = 0;
 
       Serial.print(BatteryValue);
-      // from 11.0 - 12.6 (3S lipo) -> range 55 - 80 (expected by android UI)
-      int battery_mapped = constrain(map((int)(BatteryValue * 10), 110, 126, 55, 80), 55, 80);
+      // from BATTERY_MIN (~11V) to 12.6 (3S lipo) -> range 55 - 80 (expected by android UI)
+      int battery_mapped = constrain(map((int)(BatteryValue * 10), (int)(BATTERY_MIN*10), 126, 55, 80), 55, 80);
 
 			Serial.print("B");
 			Serial.println(battery_mapped);
