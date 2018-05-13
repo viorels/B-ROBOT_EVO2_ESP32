@@ -28,8 +28,10 @@ void setMotorSpeedM1(int16_t tspeed)
 
 #if MICROSTEPPING==16
   speed = speed_M1 * 50; // Adjust factor from control output speed to real motor speed in steps/second
-#else
+#elif MICROSTEPPING==8
   speed = speed_M1 * 25; // 1/8 Microstepping
+#else
+  speed = speed_M1 * 3.125; // NO Microstepping
 #endif
 
   if (speed == 0)
@@ -74,8 +76,10 @@ void setMotorSpeedM2(int16_t tspeed)
 
 #if MICROSTEPPING==16
   speed = speed_M2 * 50; // Adjust factor from control output speed to real motor speed in steps/second
-#else
+#elif MICROSTEPPING==8
   speed = speed_M2 * 25; // 1/8 Microstepping
+#else
+  speed = speed_M2 * 3.125; // NO Microstepping
 #endif
 
   if (speed == 0)
