@@ -68,7 +68,7 @@
 #define BATTERY_MIN 11.0    // 11v minimum for 3S LiPo
 #define TELEMETRY_BATTERY 1
 #define TELEMETRY_ANGLE 1
-//#define TELEMETRY_DEBUG 1  // Dont use TELEMETRY_ANGLE and TELEMETRY_DEBUG at the same time!
+#define TELEMETRY_DEBUG 0  // Dont use TELEMETRY_ANGLE and TELEMETRY_DEBUG at the same time!
 
 #define ZERO_SPEED 0xffffff
 #define MAX_ACCEL 18      // Maximun motor acceleration (MAX RECOMMENDED VALUE: 20) (default:14)

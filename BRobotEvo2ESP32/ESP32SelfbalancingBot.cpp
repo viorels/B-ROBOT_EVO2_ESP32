@@ -402,7 +402,7 @@ void loop() {
       // from BATTERY_MIN (~11V) to 12.6 (3S lipo) -> range 55 - 80 (expected by android UI)
       int battery_mapped = constrain(map((int)(BatteryValue * 10), (int)(BATTERY_MIN*10), 126, 55, 80), 55, 80);
 
-			Serial.print("B");
+			Serial.print(" B");
 			Serial.println(battery_mapped);
 			char auxS[25];
 			sprintf(auxS, "$tB,%04d", battery_mapped);
