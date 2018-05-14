@@ -53,12 +53,13 @@
 #define ITERM_MAX_ERROR 30   // Iterm windup constants for PI control
 #define ITERM_MAX 10000
 
-#define ANGLE_OFFSET 0.0  // Offset angle for balance (to compensate robot own weight distribution)
+#define ANGLE_OFFSET 0  // Offset angle for balance (to compensate robot own weight distribution)
 
 // Servo definitions
-#define SERVO_AUX_NEUTRO 4444  // Servo neutral position
-#define SERVO_MIN_PULSEWIDTH SERVO_AUX_NEUTRO - 2700
-#define SERVO_MAX_PULSEWIDTH SERVO_AUX_NEUTRO + 2700
+#define SERVO_OFFSET -450
+#define SERVO_AUX_NEUTRO 4444 + SERVO_OFFSET  // Servo neutral position
+#define SERVO_MIN_PULSEWIDTH SERVO_AUX_NEUTRO - 2700 - SERVO_OFFSET
+#define SERVO_MAX_PULSEWIDTH SERVO_AUX_NEUTRO + 2700 - SERVO_OFFSET
 
 #define SERVO2_NEUTRO 4444
 #define SERVO2_RANGE 8400
