@@ -30,7 +30,7 @@
 #define MAX_TARGET_ANGLE 14
 
 // PRO MODE = MORE AGGRESSIVE (MAXIMUN SETTINGS)
-#define MAX_THROTTLE_PRO 780   // Max recommended value: 860
+#define MAX_THROTTLE_PRO 860   // Max recommended value: 860
 #define MAX_STEERING_PRO 260   // Max recommended value: 280
 #define MAX_TARGET_ANGLE_PRO 26   // Max recommended value: 32
 
