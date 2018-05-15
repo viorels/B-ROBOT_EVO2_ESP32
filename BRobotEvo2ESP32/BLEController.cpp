@@ -75,9 +75,9 @@
 
 // ===== Allocate GPIO of the ESP32 =====
 #define LED           2         // built-in blue LED, high -> on, low -> off
-#define BLUELED       15        // lit -> connected
-#define GREENLED      5         // lit -> scanning
-#define REDLED        4
+//#define BLUELED       15        // lit -> connected
+//#define GREENLED      5         // lit -> scanning
+//#define REDLED        4
 
 #define SCL           22        // I2C SCL
 #define SDA           21        // I2C SDA
@@ -575,7 +575,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
               if (connect == false)
               {
                 connect = true;
-                digitalWrite(BLUELED, LEDON);
+//                digitalWrite(BLUELED, LEDON);
 
                 Serial.printf("Connected to the remote device %s\n", device_name);
                 esp_ble_gap_stop_scanning();
@@ -592,7 +592,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
             Serial.println("ESP_GAP_SEARCH_INQ_CMPL_EVT");
           #endif
           scanning = false;
-          digitalWrite(GREENLED, LEDOFF);
+//          digitalWrite(GREENLED, LEDOFF);
           break;
           
         default:
@@ -616,7 +616,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
           Serial.println("Stop scan successfully");
         #endif
         scanning = false;
-        digitalWrite(GREENLED, LEDOFF);
+//        digitalWrite(GREENLED, LEDOFF);
       }
       break;
     }
@@ -738,7 +738,7 @@ void StartScan(void)
     #endif
     
     scanning = true;
-    digitalWrite(GREENLED, LEDON);
+//    digitalWrite(GREENLED, LEDON);
     // the unit of the duration is a second
     uint32_t duration = 30;
     esp_ble_gap_start_scanning(duration);
@@ -927,15 +927,16 @@ void setup_BLE()
   BaseType_t xReturned;
   
   Serial.begin(115200);
+  Serial.println("BEGIN BLUETOOTH");
 
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
-  pinMode(BLUELED, OUTPUT);       // lit -> connected
-  digitalWrite(BLUELED, LEDOFF);
-  pinMode(REDLED, OUTPUT);
-  digitalWrite(REDLED, LEDOFF);
-  pinMode(GREENLED, OUTPUT);      // lit -> scanning
-  digitalWrite(GREENLED, LEDOFF);
+//  pinMode(BLUELED, OUTPUT);       // lit -> connected
+//  digitalWrite(BLUELED, LEDOFF);
+//  pinMode(REDLED, OUTPUT);
+//  digitalWrite(REDLED, LEDOFF);
+//  pinMode(GREENLED, OUTPUT);      // lit -> scanning
+//  digitalWrite(GREENLED, LEDOFF);
 
   xReturned = xTaskCreate(taskJoyStick,             // task to handle activity on the joystick.
                           "Joystick",               // String with name of task.
@@ -999,7 +1000,7 @@ void loop_BLE()
   }
   else if (!scanning)
   {
-    digitalWrite(BLUELED, LEDOFF);
+//    digitalWrite(BLUELED, LEDOFF);
     delay(5000);
     StartScan();
   }
