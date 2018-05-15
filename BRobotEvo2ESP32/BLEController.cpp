@@ -101,6 +101,8 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_hid_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_battery_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
+static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param, int idx);
+void StartScan();
 
 // name of BLE server that you want to connect to
 static const char device_name[] = "VR BOX";
@@ -413,7 +415,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
           Serial.printf("GATT Opening Battery service: %d\n", profiles[BATTERY_PROFILE].gattc_if);
         #endif
         
-        esp_ble_gattc_open(profiles[BATTERY_PROFILE].gattc_if, profiles[BATTERY_PROFILE].remote_bda, 1);
+        esp_ble_gattc_open(profiles[BATTERY_PROFILE].gattc_if, profiles[BATTERY_PROFILE].remote_bda, BLE_ADDR_TYPE_PUBLIC, true);
       }
       
       break;
@@ -580,7 +582,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
                 #ifdef VERBOSE
                   Serial.printf("GAP Opening HID service: %d\n", profiles[HID_PROFILE].gattc_if);
                 #endif
-                esp_ble_gattc_open(profiles[HID_PROFILE].gattc_if, scan_result->scan_rst.bda, true);
+                esp_ble_gattc_open(profiles[HID_PROFILE].gattc_if, scan_result->scan_rst.bda, BLE_ADDR_TYPE_PUBLIC, true);
               }
             }
           }
@@ -920,7 +922,7 @@ void taskButtonCD(void *parameter)
 
 //******************************************************************************
 //******************************************************************************
-void setup()
+void setup_BLE()
 {
   BaseType_t xReturned;
   
@@ -977,7 +979,7 @@ void setup()
 //******************************************************************************
 // connect flag is not reset when onnection is lost !!!!
 //******************************************************************************
-void loop()
+void loop_BLE()
 {
   if (connect)
   {
