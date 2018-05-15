@@ -44,7 +44,7 @@
 //#define KI_POSITION 0.02
 
 // Control gains for raiseup (the raiseup movement requiere special control parameters)
-#define KP_RAISEUP 0.1
+#define KP_RAISEUP 0.05
 #define KD_RAISEUP 0.16
 #define KP_THROTTLE_RAISEUP 0   // No speed control on raiseup
 #define KI_THROTTLE_RAISEUP 0.0
