@@ -206,6 +206,21 @@ float readBattery() {
   return voltage_corrected;
 }
 
+void keepArmVertical(int robot_angle) {
+  float arm_angle = (float)constrain(-robot_angle, -90, 90);
+  int servo_signal = SERVO_AUX_NEUTRO;
+  if (arm_angle > 0)
+    servo_signal = SERVO_AUX_NEUTRO - (SERVO_AUX_NEUTRO - SERVO_MIN_PULSEWIDTH) * abs(arm_angle) / 90;
+  else
+    servo_signal = (SERVO_MAX_PULSEWIDTH - SERVO_AUX_NEUTRO) * arm_angle / 90 + SERVO_AUX_NEUTRO;
+
+  Serial.print("ARM ");
+  Serial.print(arm_angle);
+  Serial.print(" ");
+  Serial.println(servo_signal);
+  ledcWrite(6, servo_signal);
+}
+
 void loop() {
 	OSC_MsgRead();
 
@@ -336,6 +351,7 @@ void loop() {
 			throttle = 0;
 			steering = 0;
 		}
+
 		// Push1 Move servo arm
 		if (OSCpush[0])  // Move arm
 		{
@@ -345,7 +361,8 @@ void loop() {
 				ledcWrite(6, SERVO_MAX_PULSEWIDTH);
       setEyesStatus((motor1 + motor2) / 2, 1);
 		} else {
-			ledcWrite(6, SERVO_AUX_NEUTRO);
+//  	ledcWrite(6, SERVO_AUX_NEUTRO);
+      keepArmVertical(angle_adjusted);
       setEyesStatus((motor1 + motor2) / 2, 0);
 		}
 
