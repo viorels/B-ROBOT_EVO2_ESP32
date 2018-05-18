@@ -206,18 +206,13 @@ float readBattery() {
   return voltage_corrected;
 }
 
-void keepArmVertical(int robot_angle) {
-  float arm_angle = (float)constrain(-robot_angle, -90, 90);
+void moveArm(int angle) {
+  float arm_angle = (float)constrain(angle, -90, 90);
   int servo_signal = SERVO_AUX_NEUTRO;
   if (arm_angle > 0)
-    servo_signal = SERVO_AUX_NEUTRO - (SERVO_AUX_NEUTRO - SERVO_MIN_PULSEWIDTH) * abs(arm_angle) / 90;
+    servo_signal = map(arm_angle, 0, 90, SERVO_AUX_NEUTRO, SERVO_MAX_PULSEWIDTH);
   else
-    servo_signal = (SERVO_MAX_PULSEWIDTH - SERVO_AUX_NEUTRO) * arm_angle / 90 + SERVO_AUX_NEUTRO;
-
-  Serial.print("ARM ");
-  Serial.print(arm_angle);
-  Serial.print(" ");
-  Serial.println(servo_signal);
+    servo_signal = map(abs(arm_angle), 0, 90, SERVO_AUX_NEUTRO, SERVO_MIN_PULSEWIDTH);
   ledcWrite(6, servo_signal);
 }
 
@@ -352,6 +347,10 @@ void loop() {
 			steering = 0;
 		}
 
+    // Servo2
+    //ledcWrite(6, SERVO2_NEUTRO + (OSCfader[2] - 0.5) * SERVO2_RANGE);
+    int servo2_angle = map((OSCfader[2] - 0.5) * SERVO2_RANGE, -SERVO2_RANGE/2, SERVO2_RANGE/2, -90, 90);
+
 		// Push1 Move servo arm
 		if (OSCpush[0])  // Move arm
 		{
@@ -362,12 +361,9 @@ void loop() {
       setEyesStatus((motor1 + motor2) / 2, 1);
 		} else {
 //  	ledcWrite(6, SERVO_AUX_NEUTRO);
-      keepArmVertical(angle_adjusted);
+      moveArm(-angle_adjusted - servo2_angle);
       setEyesStatus((motor1 + motor2) / 2, 0);
 		}
-
-		// Servo2
-		//ledcWrite(6, SERVO2_NEUTRO + (OSCfader[2] - 0.5) * SERVO2_RANGE);
 
 		// Normal condition?
 		if ((angle_adjusted < 56) && (angle_adjusted > -56)) {
