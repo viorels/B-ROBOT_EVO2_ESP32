@@ -318,7 +318,8 @@ void loop() {
 			angle_ready = 82;
 		else
 			angle_ready = 74;  // Default angle
-		if ((angle_adjusted < angle_ready) && (angle_adjusted > -angle_ready) && BatteryValue > BATTERY_MIN) // Is robot ready (upright?)
+    int robot_ready = (angle_adjusted < angle_ready) && (angle_adjusted > -angle_ready);
+		if (robot_ready && BatteryValue > BATTERY_MIN) // Is robot ready (upright?)
 				{
 			// NORMAL MODE
 			digitalWrite(PIN_ENABLE_MOTORS, LOW);  // Motors enable
@@ -360,8 +361,10 @@ void loop() {
 				ledcWrite(6, SERVO_MAX_PULSEWIDTH);
       setEyesStatus((motor1 + motor2) / 2, 1);
 		} else {
-//  	ledcWrite(6, SERVO_AUX_NEUTRO);
-      moveArm(-angle_adjusted - servo2_angle);
+      if (robot_ready)
+        moveArm(-angle_adjusted - servo2_angle);
+      else
+        ledcWrite(6, SERVO_AUX_NEUTRO);
       setEyesStatus((motor1 + motor2) / 2, 0);
 		}
 
