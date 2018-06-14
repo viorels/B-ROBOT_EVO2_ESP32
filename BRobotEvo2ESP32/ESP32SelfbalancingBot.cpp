@@ -355,14 +355,14 @@ void loop() {
 		// Push1 Move servo arm
 		if (OSCpush[0])  // Move arm
 		{
-			if (angle_adjusted < -40)   // was > -40
+			if (angle_adjusted > -40)
 				ledcWrite(6, SERVO_MIN_PULSEWIDTH);
 			else
 				ledcWrite(6, SERVO_MAX_PULSEWIDTH);
       setEyesStatus((motor1 + motor2) / 2, 1);
 		} else {
       if (robot_ready)
-        moveArm(-angle_adjusted - servo2_angle);
+        moveArm(angle_adjusted + servo2_angle);
       else
         ledcWrite(6, SERVO_AUX_NEUTRO);
       setEyesStatus((motor1 + motor2) / 2, 0);
